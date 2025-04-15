@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController("/api/user")
 public class UserController {
 
-    @GetMapping("/login")
-    public String getMethodName(@RequestParam String param) {
-        return new String();
-    }
+    // @GetMapping("/login")
+    // public String getMethodName(@RequestParam String param) {
+    //     return new String();
+    // }
 
-    @GetMapping("/register")
-    public String getMethodName2(@RequestParam String param) {
-        return new String();
-    }
+    // @GetMapping("/register")
+    // public String getMethodName2(@RequestParam String param) {
+    //     return new String();
+    // }
     
     
 

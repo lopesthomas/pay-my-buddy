@@ -16,7 +16,7 @@ public class BankAccount {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user_id;
+    private AppUser user_id;
 
     private Double balance;
 

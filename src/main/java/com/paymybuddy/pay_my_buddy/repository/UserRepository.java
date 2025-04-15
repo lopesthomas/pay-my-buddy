@@ -1,9 +1,8 @@
 package com.paymybuddy.pay_my_buddy.repository;
 
-import org.springframework.stereotype.Repository;
+import com.paymybuddy.pay_my_buddy.model.AppUser;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-
-public class UserRepository {
-
+public interface UserRepository extends JpaRepository<AppUser, Long> {
+    AppUser findByUsername(String username);
 }
