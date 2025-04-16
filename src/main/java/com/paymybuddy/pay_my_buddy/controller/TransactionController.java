@@ -31,7 +31,7 @@ public class TransactionController {
     }
 
     @GetMapping("/email") // email in JSON body
-    public List<Transaction> getTransactionsByEmail(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails) {
+    public List<TransactionDTO> getTransactionsByEmail(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails) {
         String email = userDetails.getUsername();
         return transactionService.getTransactionsByUserEmail(email);
     }

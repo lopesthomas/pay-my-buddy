@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.security.Timestamp;
 import java.sql.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -37,6 +38,8 @@ public class Transaction {
     // private BigInteger receiver_id;
     private String description;
     private Double amount;
-    private java.sql.Timestamp transaction_date;
+
+    @Column(name = "transaction_date")
+    private java.sql.Timestamp transactionDate;
 
 }
