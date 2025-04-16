@@ -1,9 +1,12 @@
 package com.paymybuddy.pay_my_buddy.model;
 
 import java.math.BigInteger;
+import java.security.Timestamp;
 import java.sql.Date;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -19,6 +22,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Transaction {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -33,6 +37,6 @@ public class Transaction {
     // private BigInteger receiver_id;
     private String description;
     private Double amount;
-    private Date transaction_date;
+    private java.sql.Timestamp transaction_date;
 
 }
