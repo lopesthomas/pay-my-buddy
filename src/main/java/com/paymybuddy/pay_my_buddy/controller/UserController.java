@@ -1,48 +1,49 @@
 package com.paymybuddy.pay_my_buddy.controller;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.paymybuddy.pay_my_buddy.model.AppUser;
 import com.paymybuddy.pay_my_buddy.service.UserService;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import lombok.extern.java.Log;
 
-
-
-@RestController
-@RequestMapping("/api/user")
+@Log
+@Controller
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    // @GetMapping("/login")
-    // public String getMethodName(@RequestParam String param) {
-    //     return new String();
-    // }
+    @GetMapping("/register")
+    public String showRegisterForm(Model model) {
+        model.addAttribute("user", new AppUser());
+        return "register";
+    }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerNewUser(@RequestBody AppUser user) {
+    public String registerNewUser(@ModelAttribute("user") AppUser user, Model model) {
         try {
             userService.saveUser(user);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            log.warning("Error register user: " + e.getMessage());
+            model.addAttribute("error" , "Error registering user");
+            
+            return "register";
         }
-        return ResponseEntity.ok("User registered successfully");
+        return "redirect:/login";
     }
 
     @PutMapping("/update")
     public ResponseEntity<?> updateProfileUser(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, @RequestBody AppUser uptadeUserInfos) {
-        //TODO: process PUT request
         String authEmail = userDetails.getUsername();
         try {
             userService.updateUser(authEmail, uptadeUserInfos);

@@ -8,17 +8,14 @@
     <body>
         <div class="login-box">
             <button class="btn btn-warning">Pay My Buddy</button>
-            
-            <form th:action="@{/login}" method="post">
-                <p th:if="${param.error}" class="bg-warning">
+            <form th:action="@{/register}" th:object="${user}" method="post">
+                <p th:if="${error}" class="bg-warning">
                     L'adresse email et/ou le mot de passe sont invalides
                 </p>
-                <p th:if="${param.logout}" class="bg-success">
-                    Vous avez été déconnecté avec succès
-                </p>
-                <input type="text" class="form-control" name="username" placeholder="Mail"/>
-                <input type="password" class="form-control" name="password" placeholder="Mot de Passe"/>
-                <input type="submit" class="btn btn-primary" value="Se connecter"/>
+                <input type="text" th:field="*{username}" class="form-control" name="username" placeholder="Username"/>
+                <input type="text" th:field="*{email}" class="form-control" name="email" placeholder="Mail"/>
+                <input type="password" th:field="*{password}" class="form-control" name="password" placeholder="Mot de Passe"/>
+                <input type="submit" class="btn btn-primary" value="S'inscrire"/>
             </form>
         </div>
         

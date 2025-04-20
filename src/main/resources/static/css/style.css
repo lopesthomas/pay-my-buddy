@@ -1,0 +1,40 @@
+
+.login-box {
+    max-width: 500px;
+    margin: 100px auto;
+    background: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    text-align: center;
+
+}
+
+.form-control {
+    margin-bottom: 42px;
+    border-radius: 6px;
+    width: 295px;
+    height: 60px;
+}
+
+p {
+    max-width: 460px;
+    padding: 8px;
+}
+
+/* set format of texte and size in form and button */
+.form-control, .btn, p {
+    justify-self: center;
+    font-weight: 700;
+    font-size: 24px;
+    border-radius: 8px;
+}
+
+.btn {
+    margin: 64px 0 106px 0;
+    padding: 14px 24px;
+    color: white;
+}
+
+.btn-warning {
+    background-color: #F69F1D;
+}
