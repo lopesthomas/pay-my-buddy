@@ -1,8 +1,6 @@
 package com.paymybuddy.pay_my_buddy.model;
 
-import java.math.BigInteger;
-import java.security.Timestamp;
-import java.sql.Date;
+import java.math.BigDecimal;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,7 +35,7 @@ public class Transaction {
     // private BigInteger sender_id;
     // private BigInteger receiver_id;
     private String description;
-    private Double amount;
+    private BigDecimal amount;
 
     @Column(name = "transaction_date")
     private java.sql.Timestamp transactionDate;

@@ -1,0 +1,19 @@
+
+.navbar {
+    height: 164px;
+    font-weight: 500;
+    font-size: 20px;
+    --bs-navbar-padding-x: 80px;
+}
+
+.navbar .nav-link active {
+    color: #207FEE;
+}
+
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+    color: #207FEE;
+}
+
+.navbar-nav {
+    gap: 48px;
+}

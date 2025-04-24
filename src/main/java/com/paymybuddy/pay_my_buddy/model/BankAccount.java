@@ -1,6 +1,6 @@
 package com.paymybuddy.pay_my_buddy.model;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -24,6 +24,6 @@ public class BankAccount {
     @JoinColumn(name = "user_id")
     private AppUser userId;
 
-    private Double balance;
+    private BigDecimal balance;
 
 }

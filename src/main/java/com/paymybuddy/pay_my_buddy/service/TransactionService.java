@@ -1,5 +1,6 @@
 package com.paymybuddy.pay_my_buddy.service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import com.paymybuddy.pay_my_buddy.repository.BankAccountRepository;
 import com.paymybuddy.pay_my_buddy.repository.TransactionRepository;
 import com.paymybuddy.pay_my_buddy.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.java.Log;
 
 @Service
@@ -26,10 +28,6 @@ public class TransactionService {
     @Autowired
     private BankAccountRepository bankAccountRepository;
 
-    public List<Transaction> getAllTransactions() {
-        return transactionRepository.findAll();
-    }
-
     public List<TransactionDTO> getTransactionsByUserEmail(String email) {
         try {
             if(email == null || email.isEmpty()) {
@@ -41,7 +39,9 @@ public class TransactionService {
                     .map(tr -> {
                         TransactionDTO transactionDTO = new TransactionDTO();
                         transactionDTO.setId(tr.getId());
+                        transactionDTO.setSenderUsername(tr.getSender().getUserId().getUsername());
                         transactionDTO.setSenderEmail(email);
+                        transactionDTO.setReceiverUsername(tr.getReceiver().getUserId().getUsername());
                         transactionDTO.setReceiverEmail(tr.getReceiver().getUserId().getEmail());
                         transactionDTO.setAmount(tr.getAmount());
                         transactionDTO.setDescription(tr.getDescription());
@@ -62,13 +62,11 @@ public class TransactionService {
                 .toList();
     }
 
+    @Transactional
     public Transaction saveTransaction(TransactionDTO transaction, String authEmail) {
         try {
             if(authEmail == null || authEmail.isEmpty()) {
                 throw new RuntimeException("Authentication email is null or empty");
-            }
-            if(!authEmail.equals(transaction.getSenderEmail())) {
-                throw new RuntimeException("Sender email does not match authenticated user email");
             }
 
             AppUser senderUser = userRepository.findByEmail(authEmail);
@@ -97,12 +95,12 @@ public class TransactionService {
             BankAccount receiverAccount = bankAccountRepository.findByUserId(receiverUser)
                 .orElseThrow(() -> new RuntimeException("Receiver bank account not found for userId: " + receiverId));
 
-            if (senderAccount.getBalance().compareTo(transaction.getAmount()) < 0 || senderAccount.getBalance() - transaction.getAmount() < 0) {
+            if (senderAccount.getBalance().compareTo(transaction.getAmount()) <= 0 || senderAccount.getBalance().subtract(transaction.getAmount()).compareTo(new BigDecimal(0)) <= 0 || transaction.getAmount().compareTo(new BigDecimal(0)) <= 0) {
                 throw new RuntimeException("Insufficient balance");
             }
 
-            senderAccount.setBalance(senderAccount.getBalance() - (transaction.getAmount()));
-            receiverAccount.setBalance(receiverAccount.getBalance() + (transaction.getAmount()));
+            senderAccount.setBalance(senderAccount.getBalance().subtract(transaction.getAmount()));
+            receiverAccount.setBalance(receiverAccount.getBalance().add(transaction.getAmount()));
             bankAccountRepository.save(senderAccount);
             bankAccountRepository.save(receiverAccount);
 

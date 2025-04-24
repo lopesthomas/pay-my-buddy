@@ -31,12 +31,13 @@ public class WebSecurityConfig {
                 })
                 .authorizeHttpRequests((requests) -> requests
                                // .requestMatchers(HttpMethod.POST, "/api/user/register").permitAll()
-                                .requestMatchers("/", "/home", "/register", "/css/**").permitAll()
+                                .requestMatchers("/", "/home", "/register", "/transaction", "/css/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                                 .loginPage("/login")
                                 .permitAll()
+                                .defaultSuccessUrl("/transaction", true)
                 )
                 .logout((logout) -> logout.permitAll())
                 .httpBasic(withDefaults());
