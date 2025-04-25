@@ -31,7 +31,7 @@ public class WebSecurityConfig {
                 })
                 .authorizeHttpRequests((requests) -> requests
                                // .requestMatchers(HttpMethod.POST, "/api/user/register").permitAll()
-                                .requestMatchers("/", "/home", "/register", "/transaction", "/css/**").permitAll()
+                                .requestMatchers("/", "/home", "/register", "/transaction", "/relation", "/css/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

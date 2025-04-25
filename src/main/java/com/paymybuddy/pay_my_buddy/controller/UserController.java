@@ -42,6 +42,8 @@ public class UserController {
         return "redirect:/login";
     }
 
+    
+
     @PutMapping("/update")
     public ResponseEntity<?> updateProfileUser(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, @RequestBody AppUser uptadeUserInfos) {
         String authEmail = userDetails.getUsername();

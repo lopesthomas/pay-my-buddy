@@ -1,0 +1,33 @@
+.display-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+}
+
+.container-form {
+    min-width: 600px;
+}
+
+.form-connection {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.form-connection input {
+    font-size: 20px;
+    font-weight: 500;
+    height: 54px;
+    min-width: 484px;
+}
+
+.button-relation {
+    font-size: 24px;
+    font-weight: 500;
+    color: white;
+}
+
+.btn-warning {
+    padding: 13px 24px;
+    background-color: #F69F1D;
+}
