@@ -21,10 +21,49 @@
     min-width: 484px;
 }
 
+.form-profile {
+    font-size: 20px;
+    font-weight: 500;
+    width: max-content;
+    display: flex;
+    align-items: flex-end;
+}
+
+.form-profile span {
+    font-size: 20px;
+    font-weight: 400;
+}
+.form-profile input {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.block-profile-lign  {
+    min-width: -webkit-fill-available;
+}
+.lign-profile {
+    margin-bottom: 28px;
+}
+
+strong {
+    width: 156px;
+}
+
 .button-relation {
     font-size: 24px;
     font-weight: 500;
     color: white;
+}
+
+.button-profile {
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+}
+
+.btn-success {
+    font-size: 24px;
+    font-weight: 700;
 }
 
 .btn-warning {

@@ -29,28 +29,30 @@
                             <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
                             <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
                         </div>
-                        <form th:action="@{/profile}" th:object="${user}" method="post">
-                            <div class="mb-3 d-flex justify-content-between border-bottom pb-2">
-                                <strong>Username</strong>
-                                <span th:if="${!edit}" th:text="'@' + *{username}"></span>
-                                <input th:if="${edit}" type="text" th:field="*{username}" class="form-control w-50 text-end" required/>
-                            </div>
-        
-                            <div class="mb-3 d-flex justify-content-between border-bottom pb-2">
-                                <strong>Mail</strong>
-                                <span th:if="${!edit}" th:text="*{email}"></span>
-                                <input th:if="${edit}" type="email" th:field="*{email}" class="form-control w-50 text-end" required/>
-                            </div>
-        
-                            <div class="mb-3 d-flex justify-content-between border-bottom pb-2">
-                                <strong>Mot de passe</strong>
-                                <span th:if="${!edit}">••••••••</span>
-                                <input th:if="${edit}" type="password" th:field="*{password}" class="form-control w-50 text-end"/>
+                        <form class="form-profile" th:action="@{/profile}" th:object="${user}" method="post">
+                            <div class="block-profile-lign">
+                                <div class="lign-profile d-flex align-items-center">
+                                    <strong>Username</strong>
+                                    <span th:if="${!edit}" th:text="'@' + *{username}"></span>
+                                    <input th:if="${edit}" type="text" th:field="*{username}" class="form-control w-50" required/>
+                                </div>
+            
+                                <div class="lign-profile d-flex align-items-center">
+                                    <strong>Mail</strong>
+                                    <span th:if="${!edit}" th:text="*{email}"></span>
+                                    <input th:if="${edit}" type="email" th:field="*{email}" class="form-control w-50" required/>
+                                </div>
+            
+                                <div class="lign-profile d-flex align-items-center">
+                                    <strong>Mot de passe</strong>
+                                    <span th:if="${!edit}">••••••••</span>
+                                    <input th:if="${edit}" type="password" th:field="*{password}" class="form-control w-50"/>
+                                </div>
                             </div>
         
                             <div class="text-end">
-                                <a th:if="${!edit}" th:href="@{/profile(edit=true)}" class="btn btn-warning px-4 fw-bold">Modifier</a>
-                                <button th:if="${edit}" type="submit" class="btn btn-success px-4 fw-bold">Sauvegarder</button>
+                                <a th:if="${!edit}" th:href="@{/profile(edit=true)}" class="btn btn-warning button-profile">Modifier</a>
+                                <button th:if="${edit}" type="submit" class="btn btn-success">Sauvegarder</button>
                             </div>
                         </form>
                     </div>
