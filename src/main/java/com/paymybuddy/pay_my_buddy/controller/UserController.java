@@ -1,16 +1,12 @@
 package com.paymybuddy.pay_my_buddy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.web.exchanges.HttpExchange.Principal;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -19,6 +15,7 @@ import com.paymybuddy.pay_my_buddy.repository.UserRepository;
 import com.paymybuddy.pay_my_buddy.service.UserService;
 
 import lombok.extern.java.Log;
+
 
 @Log
 @Controller
@@ -66,19 +63,8 @@ public class UserController {
         } catch (Exception e) {
             log.warning("Error updating user: " + e.getMessage());
             redirectAttributes.addFlashAttribute("error", "Erreur de la modification de l'utilisateur");
+            return "redirect:/profile?edit=true";
         }
-        return "redirect:/profile";
+        return "redirect:/logout";
     }
-
-    @PutMapping("/update")
-    public ResponseEntity<?> updateProfileUser(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, @RequestBody AppUser uptadeUserInfos) {
-        String authEmail = userDetails.getUsername();
-        try {
-            userService.updateUser(authEmail, uptadeUserInfos);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error updating user: " + e.getMessage());
-        }
-        return ResponseEntity.ok("User updated resquested");
-    }
-    
 }
