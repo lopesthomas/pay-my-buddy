@@ -44,7 +44,7 @@ public class UserService {
         }
         updateUser.setId(userId);
 
-        if (updateUser.getId() == null) {
+        if (updateUser.getId() == null || updateUser.getId() == 0) {
             throw new RuntimeException("User ID is null");
         }
         AppUser existingUser = userRepository.findById(updateUser.getId()).orElseThrow(() -> new RuntimeException("User not found"));
