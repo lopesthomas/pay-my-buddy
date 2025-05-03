@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="fr">
     <head>
-        <title>Spring Security Example </title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"  crossorigin="anonymous">
+        <meta charset="UTF-8" />
+        <title>Login - Pay My Buddy</title>
+        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
         <link rel="stylesheet" th:href="@{/css/style.css}">
     </head>
     <body>
         <div class="login-box">
-            <button class="btn btn-warning">Pay My Buddy</button>
+            <a href="/register" class="btn btn-warning" role="button" aria-label="S'inscrire">Pay My Buddy</a>
             
-            <form th:action="@{/login}" method="post">
-                <p th:if="${param.error}" class="bg-warning">
+            <form th:action="@{/login}" method="post" aria-describedby="form-help" novalidate>
+                <p th:if="${param.error}" class="bg-warning" role="alert">
                     L'adresse email et/ou le mot de passe sont invalides
                 </p>
-                <p th:if="${param.logout}" class="bg-success">
+                <p th:if="${param.logout}" class="bg-success" role="alert">
                     Vous avez été déconnecté avec succès
                 </p>
-                <input type="text" class="form-control" name="username" placeholder="Mail"/>
-                <input type="password" class="form-control" name="password" placeholder="Mot de Passe"/>
+                <label for="email"></label>
+                <input id="email" type="text" class="form-control" name="username" placeholder="Mail"/>
+                <label for="password"></label>
+                <input id="password" type="password" class="form-control" name="password" placeholder="Mot de Passe"/>
                 <input type="submit" class="btn btn-primary" value="Se connecter"/>
             </form>
         </div>

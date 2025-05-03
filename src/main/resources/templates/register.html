@@ -1,20 +1,23 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="fr">
     <head>
-        <title>Spring Security Example </title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"  crossorigin="anonymous">
+        <title>S'inscrire - Pay My Buddy</title>
+        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
         <link rel="stylesheet" th:href="@{/css/style.css}">
     </head>
     <body>
         <div class="login-box">
-            <button class="btn btn-warning">Pay My Buddy</button>
+            <a href="/login" class="btn btn-warning" role="button" aria-label="Se connecter">Pay My Buddy</a>
             <form th:action="@{/register}" th:object="${user}" method="post">
                 <p th:if="${error}" class="bg-warning">
                     L'adresse email et/ou le mot de passe sont invalides
                 </p>
-                <input type="text" th:field="*{username}" class="form-control" name="username" placeholder="Username"/>
-                <input type="text" th:field="*{email}" class="form-control" name="email" placeholder="Mail"/>
-                <input type="password" th:field="*{password}" class="form-control" name="password" placeholder="Mot de Passe"/>
+                <label for="username"></label>
+                <input id="username" type="text" th:field="*{username}" class="form-control" name="username" placeholder="Username"/>
+                <label for="email"></label>
+                <input id="email" type="text" th:field="*{email}" class="form-control" name="email" placeholder="Mail"/>
+                <label for="password"></label>
+                <input id="password" type="password" th:field="*{password}" class="form-control" name="password" placeholder="Mot de Passe"/>
                 <input type="submit" class="btn btn-primary" value="S'inscrire"/>
             </form>
         </div>
