@@ -12,6 +12,9 @@ import com.paymybuddy.pay_my_buddy.repository.UserRepository;
 
 import lombok.extern.java.Log;
 
+/**
+ * Service responsible for managing user connections (friends/contacts).
+ */
 @Service
 @Log
 public class ConnectionsService {
@@ -22,6 +25,12 @@ public class ConnectionsService {
     @Autowired
     private ConnectionsRepository connectionsRepository;
 
+    /**
+     * Retrieves the list of user connections (friends) by their email.
+     *
+     * @param email the email of the authenticated user
+     * @return a list of ConnectionDTO objects representing the user's friends
+     */
     public List<ConnectionDTO> getConnectionsList(String email) {
         return connectionsRepository.findByUserId_Email(email).stream()
                 .map(connection -> {
@@ -33,6 +42,14 @@ public class ConnectionsService {
                 }).toList();
     }
 
+    /**
+     * Saves a new connection between the authenticated user and another user.
+     * Validates input and prevents self-connection or duplicates.
+     *
+     * @param connectionDTO the connection data containing the friend's email
+     * @param authEmail the email of the currently authenticated user
+     * @throws RuntimeException if validation fails (e.g., email is empty, friend not found, duplicate connection)
+     */
     public void saveConnection(ConnectionDTO connectionDTO, String authEmail) {
         try {
 

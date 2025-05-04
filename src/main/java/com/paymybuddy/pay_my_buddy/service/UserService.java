@@ -9,6 +9,10 @@ import com.paymybuddy.pay_my_buddy.repository.UserRepository;
 
 import lombok.extern.java.Log;
 
+/**
+ * Service class responsible for user-related business logic such as
+ * registration and profile updates.
+ */
 @Log
 @Service
 public class UserService {
@@ -19,6 +23,12 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * Saves a new user after validating the input fields and encoding the password.
+     *
+     * @param user the AppUser object containing user registration details
+     * @throws RuntimeException if the username, email, or password is invalid or already exists
+     */
     public void saveUser(AppUser user) {
         if (user.getUsername() == null || user.getUsername().isEmpty() || user.getUsername().contains(" ")) {
             throw new RuntimeException("Username is not valid, null or empty");
@@ -33,6 +43,13 @@ public class UserService {
         userRepository.save(user);
     }
 
+    /**
+     * Updates the authenticated user's profile information after validation.
+     *
+     * @param authEmail the email of the currently authenticated user
+     * @param updateUser the updated user data submitted from the profile form
+     * @throws RuntimeException if the authenticated user is invalid or update fields are not acceptable
+     */
     public void updateUser(String authEmail, AppUser updateUser) {
         if(authEmail == null || authEmail.isEmpty()) {
             throw new RuntimeException("Auth email is null or empty");

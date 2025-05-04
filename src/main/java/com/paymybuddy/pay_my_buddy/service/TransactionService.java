@@ -18,6 +18,10 @@ import com.paymybuddy.pay_my_buddy.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.java.Log;
 
+/**
+ * Service class responsible for handling transactions between users,
+ * including retrieval and creation of transaction records.
+ */
 @Service
 @Log
 public class TransactionService {
@@ -28,6 +32,13 @@ public class TransactionService {
     @Autowired
     private BankAccountRepository bankAccountRepository;
 
+    /**
+     * Retrieves a list of transactions made by a user based on their email.
+     *
+     * @param email the email of the sender
+     * @return a list of TransactionDTOs representing the user's transactions
+     * @throws RuntimeException if the email is invalid or an error occurs during processing
+     */
     public List<TransactionDTO> getTransactionsByUserEmail(String email) {
         try {
             if(email == null || email.isEmpty()) {
@@ -56,12 +67,15 @@ public class TransactionService {
 
     }
 
-    public List<Transaction> getTransactionsByUserId(Long userId) {
-        return transactionRepository.findAll().stream()
-                .filter(tr -> tr.getSender().getUserId().getId().equals(userId))
-                .toList();
-    }
-
+    /**
+     * Saves a new transaction between two users after validating balances and account existence.
+     * Performs a transfer from the sender's bank account to the receiver's.
+     *
+     * @param transaction the transaction data from the form
+     * @param authEmail the email of the currently authenticated user
+     * @return the persisted Transaction entity
+     * @throws RuntimeException if validation fails (e.g., insufficient funds, invalid accounts)
+     */
     @Transactional
     public Transaction saveTransaction(TransactionDTO transaction, String authEmail) {
         try {
