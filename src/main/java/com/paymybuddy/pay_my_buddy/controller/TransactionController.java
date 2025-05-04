@@ -18,6 +18,11 @@ import com.paymybuddy.pay_my_buddy.service.TransactionService;
 
 import lombok.extern.java.Log;
 
+/**
+ * Controller for managing user transactions.
+ * Allows users to view their connections and transaction history,
+ * and to submit new transactions to their contacts.
+ */
 @Log
 @Controller
 public class TransactionController {
@@ -28,6 +33,13 @@ public class TransactionController {
     @Autowired
     private ConnectionsService connectionsService;
 
+    /**
+     * Displays the transaction page, including the user's connections and past transactions.
+     *
+     * @param principal the authenticated user provided by Spring Security
+     * @param model the model used to pass connection and transaction data to the view
+     * @return the name of the Thymeleaf view (transaction.html)
+     */
     @GetMapping("/transaction")
     public String showTransactionsAndForm(@AuthenticationPrincipal org.springframework.security.core.userdetails.User principal ,Model model) {
         String email = principal.getUsername();
@@ -41,6 +53,14 @@ public class TransactionController {
         return "transaction";
     }
 
+    /**
+     * Handles the submission of a new transaction by the authenticated user.
+     *
+     * @param principal the authenticated user
+     * @param sendedTransaction the transaction data submitted by the form
+     * @param redirectAttributes used to pass success or error messages after redirect
+     * @return a redirect to the transaction page with a success or error flash message
+     */
     @PostMapping("/transaction")
     public String sendTransaction(@AuthenticationPrincipal org.springframework.security.core.userdetails.User principal, @ModelAttribute("transaction") TransactionDTO sendedTransaction, RedirectAttributes redirectAttributes) {
         try {

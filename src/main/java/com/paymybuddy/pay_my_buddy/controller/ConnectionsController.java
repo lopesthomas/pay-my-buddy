@@ -14,6 +14,10 @@ import com.paymybuddy.pay_my_buddy.service.ConnectionsService;
 
 import lombok.extern.java.Log;
 
+/**
+ * Controller responsible for managing user connections (relations).
+ * Provides endpoints to display the connection form and to handle new connection submissions.
+ */
 @Log
 @Controller
 public class ConnectionsController {
@@ -21,6 +25,13 @@ public class ConnectionsController {
     @Autowired
     private ConnectionsService connectionsService;
 
+    /**
+     * Displays the connection(relation) form for the authenticated user.
+     * Ensures that the model contains a ConnectionDTO object to bind the form data.
+     *
+     * @param model the model used to pass form data to the view
+     * @return the name of the Thymeleaf view (relation.html)
+     */
     @GetMapping("/relation")
     public String getFormConnection(Model model) {
         if (!model.containsAttribute("connection")){
@@ -29,6 +40,14 @@ public class ConnectionsController {
             return "relation";
     }
 
+    /**
+     * Handles the submission of a new connection (relation) by the authenticated user.
+     *
+     * @param principal the authenticated user
+     * @param sendedConnection the connection data submitted via the form
+     * @param redirectAttributes used to pass success or error messages to the redirected view
+     * @return a redirect to the /relation page with flash messages indicating result
+     */
     @PostMapping("/relation")
     public String postRelation(@AuthenticationPrincipal org.springframework.security.core.userdetails.User principal, @ModelAttribute("connection") ConnectionDTO sendedConnection, RedirectAttributes redirectAttributes) {
         try {
