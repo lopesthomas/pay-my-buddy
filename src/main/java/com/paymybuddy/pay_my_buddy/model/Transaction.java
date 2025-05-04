@@ -32,8 +32,6 @@ public class Transaction {
     @JoinColumn(name = "sender_id")
     private BankAccount sender;
 
-    // private BigInteger sender_id;
-    // private BigInteger receiver_id;
     private String description;
     private BigDecimal amount;
 

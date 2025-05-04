@@ -30,7 +30,6 @@ public class WebSecurityConfig {
                     csrf.ignoringRequestMatchers(antMatcher("/api/user/register"));
                 })
                 .authorizeHttpRequests((requests) -> requests
-                               // .requestMatchers(HttpMethod.POST, "/api/user/register").permitAll()
                                 .requestMatchers("/", "/home", "/register", "/transaction", "/profile**", "/relation", "/css/**").permitAll()
                                 .anyRequest().authenticated()
                 )
@@ -53,24 +52,8 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder(12);
     }
 
-    // @Bean
-    // public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-    //     return authConfig.getAuthenticationManager();
-    // }
-
-	// @Autowired
-    // public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-    //     auth.userDetailsService(this.userDetailsService).passwordEncoder(passwordEncoder());
-    // }
-
 	@Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
-
-    // @Bean
-    // public UserDetailsService userDetailsService() {
-    //     return userDetailsService;
-    // }
-
 }
