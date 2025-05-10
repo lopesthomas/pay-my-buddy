@@ -54,6 +54,9 @@ mvn spring-boot:run
 L'application démarre par défaut sur http://localhost:8080/
 
 ### 🗃️ Base de données
+<details> <summary><strong>📄 Voir le Model MPD</strong></summary>
+  <img src="https://github.com/lopesthomas/pay-my-buddy/blob/main/Model-MPD.png?raw=true">
+</details>
 <details> <summary><strong>📄 Voir le script SQL</strong></summary>
 
 ```sh
