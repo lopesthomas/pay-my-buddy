@@ -1,10 +1,15 @@
 package com.paymybuddy.pay_my_buddy.service;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.paymybuddy.pay_my_buddy.model.AppUser;
+import com.paymybuddy.pay_my_buddy.model.BankAccount;
+import com.paymybuddy.pay_my_buddy.repository.BankAccountRepository;
 import com.paymybuddy.pay_my_buddy.repository.UserRepository;
 
 import lombok.extern.java.Log;
@@ -21,6 +26,9 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private BankAccountRepository bankAccountRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     /**
@@ -29,7 +37,12 @@ public class UserService {
      * @param user the AppUser object containing user registration details
      * @throws RuntimeException if the username, email, or password is invalid or already exists
      */
+    @Transactional
     public void saveUser(AppUser user) {
+        System.out.println(user.getUsername());
+        System.out.println(user.getEmail());
+        System.out.println(user.getPassword());
+        System.out.println(userRepository.findByEmail(user.getEmail()));
         if (user.getUsername() == null || user.getUsername().isEmpty() || user.getUsername().contains(" ")) {
             throw new RuntimeException("Username is not valid, null or empty");
         }
@@ -41,6 +54,12 @@ public class UserService {
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+        
+        BankAccount bankAccount = new BankAccount();
+        bankAccount.setUserId(user);
+        bankAccount.setBalance(BigDecimal.ZERO);
+        bankAccountRepository.save(bankAccount);
+        
     }
 
     /**

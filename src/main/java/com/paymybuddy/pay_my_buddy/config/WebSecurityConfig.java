@@ -1,4 +1,5 @@
 package com.paymybuddy.pay_my_buddy.config;
+
 import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
@@ -22,37 +23,37 @@ public class WebSecurityConfig {
         this.userDetailsService = userDetailsService;
     }
 
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> {
                     csrf.disable();
                     csrf.ignoringRequestMatchers(antMatcher("/api/user/register"));
                 })
                 .authorizeHttpRequests((requests) -> requests
-                                .requestMatchers("/", "/home", "/register", "/transaction", "/profile**", "/relation", "/css/**").permitAll()
-                                .anyRequest().authenticated()
-                )
+                        .requestMatchers("/", "/home", "/register", "/transaction", "/profile**", "/relation",
+                                "/css/**")
+                        .permitAll()
+                        .anyRequest().authenticated())
                 .formLogin((form) -> form
-                                .loginPage("/login")
-                                .permitAll()
-                                .defaultSuccessUrl("/transaction", true)
-                )
+                        .loginPage("/login")
+                        .permitAll()
+                        .defaultSuccessUrl("/transaction", true))
                 .logout((logout) -> logout.permitAll())
                 .httpBasic(withDefaults());
 
-			http
-            .userDetailsService(userDetailsService);
+        http
+                .userDetailsService(userDetailsService);
 
-		return http.build();
-	}
+        return http.build();
+    }
 
-	@Bean
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
     }
 
-	@Bean
+    @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }

@@ -4,6 +4,7 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.paymybuddy.pay_my_buddy.model.AppUser;
+import com.paymybuddy.pay_my_buddy.repository.BankAccountRepository;
 import com.paymybuddy.pay_my_buddy.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,9 @@ public class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private BankAccountRepository bankAccountRepository;
 
     @Mock
     private PasswordEncoder passwordEncoder;

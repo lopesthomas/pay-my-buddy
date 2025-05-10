@@ -69,7 +69,7 @@ public class TransactionController {
             redirectAttributes.addFlashAttribute("success", "Transaction envoyée avec succès");
         } catch (Exception e) {
             log.warning("Error register transaction: " + e.getMessage());
-            redirectAttributes.addFlashAttribute("error", "Erreur lors de l'envoi de la transaction");
+            redirectAttributes.addFlashAttribute("error", "Erreur lors de l'envoi de la transaction ou fonds insuffisants");
         }
         return "redirect:/transaction";
     }
